@@ -5,24 +5,13 @@
   remote_user: ubuntu
 
   pre_tasks:
-    - name: Install python
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python)
-      become: yes
-      become_user: root
-      become_method: sudo
-
- 
     - name: Install git
-      raw: test -e /usr/bin/git || (apt -y update && apt install -y git)
       become: yes
       become_user: root
       become_method: sudo
-
-    - name: Install ca-certificates needed for git ssl 
-      raw: apt -y update && apt install -y ca-certificates
-      become: yes
-      become_user: root
-      become_method: sudo
+      package:
+        name: git
+        state: present
 
     - name: Include group variables
       include_vars:

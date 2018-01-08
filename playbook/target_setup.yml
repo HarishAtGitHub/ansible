@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  gather_facts: False # without this it would fail as there is no python
+  remote_user: ubuntu
+
+  pre_tasks:
+    # this is os dependent
+    - name: Install python
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python)
+      become: yes
+      become_user: root
+      become_method: sudo
+    
+    #- name: Install ca-certificates needed for git ssl 
+      #- raw: apt -y update && apt install -y ca-certificates
+      #- become: yes
+      #- become_user: root
+      #- become_method: sudo
