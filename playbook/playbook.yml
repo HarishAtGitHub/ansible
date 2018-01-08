@@ -22,6 +22,9 @@
     - name: Checkout the git reporsitory of this project
       remote_user: ubuntu
       git:
-        repo: https://github.com/HarishAtGitHub/Jsplumb-Matching
+        repo: "{{ group_vars.repository_url }}"
         dest: /home/ubuntu/hello
 
+    - name: see variable
+      debug:
+        msg: "{{ group_vars.repository_url }}"
