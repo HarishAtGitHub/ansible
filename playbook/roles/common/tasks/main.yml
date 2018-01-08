@@ -1,0 +1,13 @@
+---
+- name: Include group variables
+  include_vars:
+    file: group_vars/all
+    name: group_vars
+
+- name: Install git
+  become: yes
+  become_user: root
+  become_method: sudo
+  package:
+    name: git
+    state: present

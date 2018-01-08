@@ -1,0 +1,11 @@
+---
+
+- name: Checkout the git reporsitory of this project
+  remote_user: ubuntu
+  git:
+    repo: "{{ group_vars.repository_url }}"
+    dest: /home/ubuntu/project
+
+- name: see variable
+  debug:
+    msg: "{{ group_vars.repository_url }}"
