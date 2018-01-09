@@ -1,6 +1,16 @@
 ---
+- name: Install basic required packed apache curl
+  become: yes
+  become_user: root
+  become_method: sudo
+  package:
+    name : "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - apache2
 
-- name:
+- name: Transfer the key
   copy:
     src: "{{ group_vars.repository_key }}"
     dest: "{{ group_vars.remote_repository_key_location }}"
