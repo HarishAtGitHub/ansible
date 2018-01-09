@@ -9,6 +9,7 @@
   with_items:
     - curl
     - apache2
+    - nodejs
 
 - name: Transfer the key
   copy:
