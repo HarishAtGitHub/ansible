@@ -28,6 +28,20 @@
     state: present
     name: proxy_http
 
+- name: Transfer the apache conf file
+  copy:
+    src: ./files/apache2_custom.conf
+    dest: /tmp
+
+- name: Copy proxy configuration to apache2 conf
+  become: yes
+  become_user: root
+  become_method: sudo
+  blockinfile:
+    block: "{{ lookup('file', './files/apache2_custom.conf') }}"
+    dest: "{{ group_vars.apache_conf }}"
+    insertafter: EOF
+
 - name: Transfer the key
   copy:
     src: "{{ group_vars.repository_key }}"
@@ -97,7 +111,15 @@
     chdir: "{{ group_vars.web_repo_checkout_location }}/backend"
 
 - name: Running pm2 for backend
-  command: pm2 start {{ group_vars.web_repo_checkout_location }}/backend/build/index.js --name awprojectbackend
+  command: pm2 restart {{ group_vars.web_repo_checkout_location }}/backend/build/index.js --name awprojectbackend
 
 - name: Running pm2 for front end
-  command: pm2 start {{ group_vars.web_repo_checkout_location }}/frontend/node_modules/.bin/webpack-dev-server --name awprojectfrontend -x -- --content-base src --inline --hot
+  command: pm2 restart {{ group_vars.web_repo_checkout_location }}/frontend/node_modules/.bin/webpack-dev-server --name awprojectfrontend -x -- --content-base src --inline --hot
+
+- name: Restart apache2          
+  become: yes
+  become_user: root
+  become_method: sudo
+  service:
+    name: apache2
+    state: restarted

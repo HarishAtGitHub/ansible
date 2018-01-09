@@ -3,3 +3,4 @@ repository_key: ~/.ssh/aw-project
 web_repo_checkout_location: ~/project
 remote_repository_key_location : ~/.ssh
 remote_repository_key : "{{ remote_repository_key_location }}/aw-project"
+apache_conf: /etc/apache2/apache2.conf
