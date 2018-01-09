@@ -1,0 +1,11 @@
+---
+- name: Install basic required packed apache curl
+  become: yes
+  become_user: root
+  become_method: sudo
+  package:
+    name : "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - mongodb
