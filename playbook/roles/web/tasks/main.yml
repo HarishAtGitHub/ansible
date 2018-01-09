@@ -9,7 +9,7 @@
   with_items:
     - curl
     - apache2
-    - nodejs
+    - nodejs-legacy
     - npm
 
 - name: Enable apache module proxy
@@ -90,3 +90,14 @@
     name: pm2
     state: latest
     global: yes
+
+- name: Running build in npm
+  command: npm run build
+  args:
+    chdir: "{{ group_vars.web_repo_checkout_location }}/backend"
+
+- name: Running pm2 for backend
+  command: pm2 start {{ group_vars.web_repo_checkout_location }}/backend/build/index.js --name awprojectbackend
+
+- name: Running pm2 for front end
+  command: pm2 start {{ group_vars.web_repo_checkout_location }}/frontend/node_modules/.bin/webpack-dev-server --name awprojectfrontend -x -- --content-base src --inline --hot
