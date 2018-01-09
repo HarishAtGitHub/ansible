@@ -1,1 +1,5 @@
-repository_url: https://github.com/HarishAtGitHub/Jsplumb-Matching
+repository_url: git@github.com:HarishAtGitHub/awproject.git
+repository_key: ~/.ssh/aw-project
+web_repo_checkout_location: ~/project
+remote_repository_key_location : ~/.ssh
+remote_repository_key : "{{ remote_repository_key_location }}/aw-project"

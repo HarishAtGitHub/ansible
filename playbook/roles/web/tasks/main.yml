@@ -1,11 +1,19 @@
 ---
 
-- name: Checkout the git reporsitory of this project
+- name:
+  copy:
+    src: "{{ group_vars.repository_key }}"
+    dest: "{{ group_vars.remote_repository_key_location }}"
+    mode: 0600
+
+  #- name: see variable
+  #debug:
+  #  msg: "{{ group_vars.remote_repository_key_location }}/{{ group_vars.remote_repository_key_name }}"
+
+- name: Checkout the git repository of this project
   remote_user: ubuntu
   git:
     repo: "{{ group_vars.repository_url }}"
-    dest: /home/ubuntu/project
-
-- name: see variable
-  debug:
-    msg: "{{ group_vars.repository_url }}"
+    dest: "{{ group_vars.web_repo_checkout_location }}"
+    key_file: "{{ group_vars.remote_repository_key }}"
+    accept_hostkey: yes
