@@ -10,6 +10,7 @@
     - curl
     - apache2
     - nodejs
+    - npm
 
 - name: Transfer the key
   copy:
