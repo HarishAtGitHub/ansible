@@ -12,6 +12,22 @@
     - nodejs
     - npm
 
+- name: Enable apache module proxy
+  become: yes
+  become_user: root
+  become_method: sudo
+  apache2_module:
+    state: present
+    name: proxy
+
+- name: Enable apache module proxy_http 
+  become: yes
+  become_user: root
+  become_method: sudo
+  apache2_module:
+    state: present
+    name: proxy_http
+
 - name: Transfer the key
   copy:
     src: "{{ group_vars.repository_key }}"
@@ -29,3 +45,21 @@
     dest: "{{ group_vars.web_repo_checkout_location }}"
     key_file: "{{ group_vars.remote_repository_key }}"
     accept_hostkey: yes
+
+  #- name: npm install packages based on package.json in backend
+  #  npm:
+  #    path: "{{ group_vars.web_repo_checkout_location }}/backend"
+  #
+  #- name: npm install packages based on package.json in frontend
+  #  npm:
+  #    path: "{{ group_vars.web_repo_checkout_location }}/frontend"
+
+
+- name: npm install packages based on package name pm2
+  become: yes
+  become_user: root
+  become_method: sudo
+  npm:
+    name: pm2
+    state: latest
+    global: yes
