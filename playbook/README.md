@@ -10,5 +10,5 @@ How to RUN ?
 
 ============
 
-ansible-playbook main.yml -i hosts -u ubuntu -k --ask-sudo-pass
+ansible-playbook main.yml -i hosts -u ubuntu -k --ask-become-pass
 
