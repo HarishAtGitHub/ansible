@@ -46,14 +46,41 @@
     key_file: "{{ group_vars.remote_repository_key }}"
     accept_hostkey: yes
 
-  #- name: npm install packages based on package.json in backend
-  #  npm:
-  #    path: "{{ group_vars.web_repo_checkout_location }}/backend"
-  #
-  #- name: npm install packages based on package.json in frontend
-  #  npm:
-  #    path: "{{ group_vars.web_repo_checkout_location }}/frontend"
+- name: npm install packages based on package.json in backend
+  npm:
+    path: "{{ group_vars.web_repo_checkout_location }}/backend"
 
+- name: npm install packages based on package.json in frontend
+  npm:
+    path: "{{ group_vars.web_repo_checkout_location }}/frontend"
+
+
+- name: npm install packages based on package name bcrypt
+  become: yes
+  become_user: root
+  become_method: sudo
+  npm:
+    name: bcryptjs
+    state: present
+    global: yes
+
+- name: npm install packages based on package name babel-preset-es2015
+  become: yes
+  become_user: root
+  become_method: sudo
+  npm:
+    name: babel-preset-es2015
+    state: present
+    global: yes
+
+- name: npm install packages based on package name history
+  become: yes
+  become_user: root
+  become_method: sudo
+  npm:
+    name: history
+    state: present
+    global: yes
 
 - name: npm install packages based on package name pm2
   become: yes
